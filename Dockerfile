@@ -68,13 +68,8 @@ RUN useradd -m -u 1000 rails && \
 
 USER rails
 
-# Expose port (Railway sets PORT=8080, but we'll use env var for flexibility)
+# Expose port
 EXPOSE 3000
-ENV PORT=3000
-
-# Health check (use PORT env var)
-HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:${PORT:-3000}/up || exit 1
 
 # Start server with production settings
 ENV RAILS_ENV=production \
