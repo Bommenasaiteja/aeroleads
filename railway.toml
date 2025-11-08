@@ -1,18 +1,14 @@
 # Railway configuration for Autodialer (monorepo setup)
 
 [build]
-builder = "NIXPACKS"
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
 # Set the working directory to the autodialer subdirectory
 watchPatterns = ["autodialer & blogs(Task2 & Task3)/**"]
 
 [deploy]
-# Start command will run from the root, so we need to specify the full path
-startCommand = "cd 'autodialer & blogs(Task2 & Task3)' && bundle exec rails server -b 0.0.0.0 -p ${PORT:-3000}"
+# Docker entrypoint handles the start command
 healthcheckPath = "/up"
 healthcheckTimeout = 100
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
-
-# Specify which directory contains the app
-[build.env]
-NIXPACKS_PATH = "autodialer & blogs(Task2 & Task3)"
