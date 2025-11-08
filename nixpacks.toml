@@ -4,7 +4,7 @@
 NIXPACKS_PATH = "autodialer & blogs(Task2 & Task3)"
 
 [phases.setup]
-nixPkgs = ["...", "libvips"]
+nixPkgs = ["...", "vips"]
 
 [phases.install]
 cmds = [
