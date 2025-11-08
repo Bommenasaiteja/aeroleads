@@ -1,0 +1,23 @@
+# Nixpacks configuration for Autodialer in monorepo
+
+[variables]
+NIXPACKS_PATH = "autodialer & blogs(Task2 & Task3)"
+
+[phases.setup]
+nixPkgs = ["...", "libvips"]
+
+[phases.install]
+cmds = [
+  "cd 'autodialer & blogs(Task2 & Task3)'",
+  "bundle install --deployment --without development:test"
+]
+
+[phases.build]
+cmds = [
+  "cd 'autodialer & blogs(Task2 & Task3)'",
+  "bundle exec bootsnap precompile --gemfile app/ lib/",
+  "SECRET_KEY_BASE=dummy bundle exec rails assets:precompile"
+]
+
+[start]
+cmd = "cd 'autodialer & blogs(Task2 & Task3)' && bundle exec rails db:prepare && bundle exec rails server -b 0.0.0.0 -p ${PORT:-3000}"

@@ -1,0 +1,25 @@
+# Railway ignore file for monorepo
+# Exclude directories not needed for autodialer deployment
+
+# Exclude other applications
+Linked_scrapper(Task1)/
+
+# Exclude development files
+.git/
+.github/
+.claude/
+*.md
+!RAILWAY_DEPLOYMENT_AUTODIALER.md
+
+# Python files (not needed for Rails app)
+*.py
+*.pyc
+__pycache__/
+.python-version
+pyproject.toml
+
+# Exclude autodialer development files
+autodialer & blogs(Task2 & Task3)/test/
+autodialer & blogs(Task2 & Task3)/tmp/
+autodialer & blogs(Task2 & Task3)/log/*.log
+autodialer & blogs(Task2 & Task3)/storage/*.sqlite3
