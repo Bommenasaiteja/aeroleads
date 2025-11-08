@@ -92,7 +92,10 @@ Rails.application.configure do
   # Railway provides dynamic domains, so we allow Railway domains
   config.hosts = [
     /.*\.railway\.app$/,  # Allow Railway domains
-    /.*\.up\.railway\.app$/ # Allow Railway preview domains
+    /.*\.up\.railway\.app$/,  # Allow Railway preview domains
+    "localhost",  # Allow localhost for Docker
+    "127.0.0.1",  # Allow 127.0.0.1 for Docker
+    "0.0.0.0"  # Allow 0.0.0.0 for Docker
   ]
   # Skip DNS rebinding protection for the default health check endpoint.
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }

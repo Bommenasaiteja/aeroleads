@@ -82,7 +82,7 @@ ENV RAILS_ENV=production \
 
 # Create entrypoint script to handle database setup
 COPY --chown=rails:rails <<-"EOF" /rails/docker-entrypoint.sh
-#!/bin/bash
+#!/bin/sh
 set -e
 
 echo "Preparing database..."
@@ -94,4 +94,4 @@ EOF
 
 RUN chmod +x /rails/docker-entrypoint.sh
 
-CMD ["/rails/docker-entrypoint.sh"]
+CMD ["/bin/sh", "/rails/docker-entrypoint.sh"]
