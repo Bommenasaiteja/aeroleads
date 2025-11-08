@@ -1,0 +1,57 @@
+# .dockerignore for autodialer monorepo - optimized for build speed
+
+# Exclude other applications (not needed for autodialer)
+Linked_scrapper(Task1)/
+
+# Git and version control
+.git/
+.gitignore
+.github/
+*.md
+!autodialer & blogs(Task2 & Task3)/README.md
+
+# Development and documentation files
+.claude/
+.vscode/
+.devcontainer/
+*.md
+RAILWAY_DEPLOY.md
+
+# Python specific (not needed for Ruby)
+.python-version
+pyproject.toml
+__pycache__/
+*.py[cod]
+
+# Railway and deployment configs
+railway.toml
+nixpacks.toml
+.railwayignore
+
+# Rails specific files that shouldn't be in the image
+autodialer & blogs(Task2 & Task3)/.git/
+autodialer & blogs(Task2 & Task3)/log/*
+autodialer & blogs(Task2 & Task3)/tmp/*
+autodialer & blogs(Task2 & Task3)/storage/*.sqlite3
+autodialer & blogs(Task2 & Task3)/storage/development.sqlite3
+autodialer & blogs(Task2 & Task3)/storage/test.sqlite3
+autodialer & blogs(Task2 & Task3)/storage/production.sqlite3
+autodialer & blogs(Task2 & Task3)/node_modules/
+autodialer & blogs(Task2 & Task3)/.env
+autodialer & blogs(Task2 & Task3)/.env.local
+autodialer & blogs(Task2 & Task3)/.env.*.local
+autodialer & blogs(Task2 & Task3)/coverage/
+
+# Test files (excluded via bundle without flag)
+autodialer & blogs(Task2 & Task3)/test/
+autodialer & blogs(Task2 & Task3)/spec/
+
+# Documentation
+autodialer & blogs(Task2 & Task3)/doc/
+autodialer & blogs(Task2 & Task3)/README.rdoc
+
+# IDE files
+*.swp
+*.swo
+*~
+.DS_Store

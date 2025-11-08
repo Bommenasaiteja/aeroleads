@@ -21,8 +21,14 @@ test:
   database: storage/test.sqlite3
 
 production:
+  <% if ENV['DATABASE_URL'].to_s.strip.empty? %>
+  # Use SQLite for Docker/local production (when DATABASE_URL is not set)
+  <<: *default
+  database: storage/production.sqlite3
+  <% else %>
+  # Use PostgreSQL when DATABASE_URL is provided (e.g., Railway, Heroku)
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: <%= ENV['DATABASE_URL'] %>
-  # Railway provides DATABASE_URL automatically
+  <% end %>

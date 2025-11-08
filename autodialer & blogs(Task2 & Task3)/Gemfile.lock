@@ -181,6 +181,10 @@ GEM
       racc (~> 1.4)
     nokogiri (1.17.2-x86_64-linux)
       racc (~> 1.4)
+    pg (1.6.2)
+    pg (1.6.2-arm64-darwin)
+    pg (1.6.2-x86_64-darwin)
+    pg (1.6.2-x86_64-linux)
     popper_js (2.11.8)
     pp (0.6.3)
       prettyprint
@@ -288,7 +292,7 @@ GEM
       nokogiri (>= 1.6, < 2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uri (1.1.1)
+    uri (0.10.1)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -317,6 +321,7 @@ DEPENDENCIES
   debug
   importmap-rails
   jbuilder
+  pg (~> 1.5)
   puma (>= 5.0)
   rails (~> 7.1.6)
   ruby-openai
@@ -328,6 +333,7 @@ DEPENDENCIES
   turbo-rails
   twilio-ruby
   tzinfo-data
+  uri (= 0.10.1)
   web-console
 
 RUBY VERSION
