@@ -36,10 +36,11 @@ RUN bundle config set --local without 'development test' && \
 # Copy the rest of the application
 COPY ["autodialer & blogs(Task2 & Task3)", "/rails/"]
 
-# Precompile assets (set all required env vars to avoid errors)
-RUN SECRET_KEY_BASE=dummy \
+# Precompile assets (set all required env vars)
+# Note: We need a valid SECRET_KEY_BASE for asset compilation
+RUN SECRET_KEY_BASE='0ebf7c3d6331b3eeb3c04cda45963ac7e0a62bba7ef9537b0aac37ae2a5c982d7c9e2e7c2446f61cbc2e1b118e0746f6584ae37154d85244acac701ba346b0de' \
     RAILS_ENV=production \
-    bundle exec rails assets:precompile 2>/dev/null || echo "Asset precompilation skipped"
+    bundle exec rails assets:precompile
 
 # Stage 2: Runtime Stage (minimal image)
 FROM ruby:3.1.4-slim AS runtime
