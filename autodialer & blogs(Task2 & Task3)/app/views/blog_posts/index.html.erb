@@ -1,0 +1,115 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>📝 Programming Blog</h1>
+      <%= link_to "✍️ New Post", new_blog_post_path, class: "btn btn-primary" %>
+    </div>
+
+    <% if @blog_posts.any? %>
+      <% @blog_posts.each do |post| %>
+        <article class="card mb-4">
+          <div class="card-body">
+            <h2 class="h4 card-title">
+              <%= link_to post.title, blog_post_path(post), class: "text-decoration-none" %>
+            </h2>
+            
+            <p class="card-text text-muted">
+              <%= truncate(strip_tags(post.content), length: 200) %>
+            </p>
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">
+                By <%= post.author %> • <%= post.published_at.strftime("%B %d, %Y") %>
+              </small>
+              <%= link_to "Read More →", blog_post_path(post), class: "btn btn-outline-primary btn-sm" %>
+            </div>
+          </div>
+        </article>
+      <% end %>
+    <% else %>
+      <div class="text-center py-5">
+        <h3>No blog posts yet</h3>
+        <p class="text-muted">Create some blog posts using AI or write them manually.</p>
+        <%= link_to "Create AI Blog Posts", new_blog_post_path, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-4">
+    <!-- AI Blog Generator -->
+    <div class="card">
+      <div class="card-header">
+        <h5>🤖 AI Blog Generator</h5>
+      </div>
+      <div class="card-body">
+        <p class="small text-muted">Generate programming blog posts using AI. Provide titles with optional descriptions.</p>
+        
+        <%= form_with url: generate_ai_posts_blog_posts_path, method: :post, local: true do |f| %>
+          <%= f.label :titles_list, "Blog Post Titles:", class: "form-label" %>
+          <%= f.text_area :titles_list, 
+              rows: 6,
+              placeholder: "Ruby on Rails Best Practices\nJavaScript ES6 Features - Modern syntax and features\nPython Data Science - Working with pandas and numpy\nDocker for Beginners\nReact Hooks Explained", 
+              class: "form-control mb-3" %>
+          
+          <small class="form-text text-muted mb-3">
+            Format: One title per line. Optional: "Title - Description"
+          </small>
+          
+          <%= f.submit "🚀 Generate Posts", class: "btn btn-success w-100", 
+              confirm: "This will generate multiple AI blog posts. Continue?" %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Blog Stats -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h5>📊 Blog Statistics</h5>
+      </div>
+      <div class="card-body">
+        <div class="row text-center">
+          <div class="col-6">
+            <h4><%= BlogPost.published.count %></h4>
+            <small>Published Posts</small>
+          </div>
+          <div class="col-6">
+            <h4><%= BlogPost.where(author: "AI Assistant").count %></h4>
+            <small>AI Generated</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample Topics -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h5>💡 Sample Topics</h5>
+      </div>
+      <div class="card-body">
+        <h6 class="small">Programming Languages:</h6>
+        <ul class="small">
+          <li>Ruby on Rails Development</li>
+          <li>JavaScript Modern Features</li>
+          <li>Python for Data Science</li>
+          <li>Go Concurrency Patterns</li>
+        </ul>
+        
+        <h6 class="small mt-3">DevOps & Tools:</h6>
+        <ul class="small">
+          <li>Docker Containerization</li>
+          <li>Kubernetes Orchestration</li>
+          <li>CI/CD Best Practices</li>
+          <li>AWS Cloud Services</li>
+        </ul>
+        
+        <h6 class="small mt-3">Web Development:</h6>
+        <ul class="small">
+          <li>React Hooks Guide</li>
+          <li>Vue.js Components</li>
+          <li>API Design Patterns</li>
+          <li>Database Optimization</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

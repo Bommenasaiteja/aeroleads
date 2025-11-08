@@ -1,0 +1,31 @@
+<article class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <header class="mb-4">
+        <h1 class="h2"><%= @blog_post.title %></h1>
+        <div class="text-muted mb-3">
+          By <strong><%= @blog_post.author %></strong> • 
+          <%= @blog_post.published_at&.strftime("%B %d, %Y") %>
+        </div>
+        <hr>
+      </header>
+      
+      <div class="blog-content">
+        <%= simple_format(@blog_post.content) %>
+      </div>
+      
+      <footer class="mt-5 py-4 border-top">
+        <div class="row">
+          <div class="col-md-6">
+            <%= link_to "← Back to Blog", blog_posts_path, class: "btn btn-outline-secondary" %>
+          </div>
+          <div class="col-md-6 text-end">
+            <% if @blog_post.author == "AI Assistant" %>
+              <span class="badge bg-info">AI Generated</span>
+            <% end %>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</article>

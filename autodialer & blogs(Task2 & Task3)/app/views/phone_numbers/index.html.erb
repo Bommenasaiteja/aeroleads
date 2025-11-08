@@ -1,0 +1,205 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex align-items-center">
+    <div class="me-3">
+      <div style="background: linear-gradient(135deg, #667eea, #764ba2); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+        <i class="bi bi-telephone-fill text-white" style="font-size: 1.25rem;"></i>
+      </div>
+    </div>
+    <div>
+      <h1 class="mb-1" style="background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">Phone Numbers</h1>
+      <p class="text-muted mb-0">Manage your calling list</p>
+    </div>
+  </div>
+  <%= link_to upload_phone_numbers_path, class: "btn btn-primary d-flex align-items-center" do %>
+    <i class="bi bi-cloud-upload me-2"></i>
+    Upload Numbers
+  <% end %>
+</div>
+
+<!-- Enhanced Stats Summary -->
+<div class="row mb-4">
+  <div class="col-md-3 mb-3">
+    <div class="card text-center stats-card h-100">
+      <div class="card-body d-flex flex-column justify-content-center">
+        <div class="mb-2">
+          <i class="bi bi-hash" style="font-size: 1.5rem; color: #667eea; opacity: 0.8;"></i>
+        </div>
+        <h4 style="color: #667eea; font-weight: 700;"><%= @stats[:total] %></h4>
+        <small class="text-muted">Total Numbers</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card text-center h-100" style="background: linear-gradient(135deg, rgba(237, 137, 54, 0.05), rgba(221, 107, 32, 0.05));">
+      <div class="card-body d-flex flex-column justify-content-center">
+        <div class="mb-2">
+          <i class="bi bi-clock-history" style="font-size: 1.5rem; color: #ed8936;"></i>
+        </div>
+        <h4 style="color: #ed8936; font-weight: 700;"><%= @stats[:pending] %></h4>
+        <small class="text-muted">Pending</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card text-center h-100" style="background: linear-gradient(135deg, rgba(72, 187, 120, 0.05), rgba(56, 161, 105, 0.05));">
+      <div class="card-body d-flex flex-column justify-content-center">
+        <div class="mb-2">
+          <i class="bi bi-check-circle-fill" style="font-size: 1.5rem; color: #48bb78;"></i>
+        </div>
+        <h4 style="color: #48bb78; font-weight: 700;"><%= @stats[:called] %></h4>
+        <small class="text-muted">Called</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 mb-3">
+    <div class="card text-center h-100" style="background: linear-gradient(135deg, rgba(245, 101, 101, 0.05), rgba(229, 62, 62, 0.05));">
+      <div class="card-body d-flex flex-column justify-content-center">
+        <div class="mb-2">
+          <i class="bi bi-x-circle-fill" style="font-size: 1.5rem; color: #f56565;"></i>
+        </div>
+        <h4 style="color: #f56565; font-weight: 700;"><%= @stats[:failed] %></h4>
+        <small class="text-muted">Failed</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Enhanced Bulk Actions -->
+<div class="card mb-4" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));">
+  <div class="card-header" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); border: none;">
+    <div class="d-flex align-items-center">
+      <div class="me-2" style="background: linear-gradient(135deg, #48bb78, #38a169); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+        <i class="bi bi-lightning-fill text-white" style="font-size: 0.9rem;"></i>
+      </div>
+      <h6 class="mb-0 fw-bold">Quick Actions</h6>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <%= form_with url: call_all_phone_numbers_path, method: :post, local: true do |f| %>
+          <%= f.submit "Call All Pending (#{@stats[:pending]})", class: "btn btn-success w-100 d-flex align-items-center justify-content-center", confirm: "This will call all pending numbers. Continue?", style: "height: 50px; font-weight: 500;" %>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <%= form_with model: PhoneNumber.new, url: phone_numbers_path, method: :post, local: true, class: "d-flex" do |f| %>
+          <%= f.text_field :number, placeholder: "Add single number (e.g., 1800-123-4567)", class: "form-control me-2" %>
+          <%= f.submit "Add", class: "btn btn-outline-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Enhanced Phone Numbers List -->
+<div class="card" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));">
+  <div class="card-header" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); border: none;">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <div class="me-2" style="background: linear-gradient(135deg, #667eea, #764ba2); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+          <i class="bi bi-list-ul text-white" style="font-size: 0.9rem;"></i>
+        </div>
+        <h5 class="mb-0 fw-bold">All Phone Numbers</h5>
+      </div>
+      <span class="badge bg-light text-dark"><%= @stats[:total] %> numbers</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <% if @phone_numbers.any? %>
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead>
+            <tr>
+              <th style="font-weight: 600; color: #2d3748;">Number</th>
+              <th style="font-weight: 600; color: #2d3748;">Name</th>
+              <th style="font-weight: 600; color: #2d3748;">Status</th>
+              <th style="font-weight: 600; color: #2d3748;">Uploaded</th>
+              <th style="font-weight: 600; color: #2d3748;">Last Call</th>
+              <th style="font-weight: 600; color: #2d3748;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @phone_numbers.each do |phone_number| %>
+              <tr>
+                <td>
+                  <div class="flex items-center gap-2">
+                    <i class="bi bi-telephone text-sm"></i>
+                    <span class="font-medium"><%= phone_number.number %></span>
+                  </div>
+                </td>
+                <td><%= phone_number.name %></td>
+                <td>
+                  <% 
+                    case phone_number.status
+                    when 'pending'
+                      badge_class = 'badge-warning'
+                    when 'called'
+                      badge_class = 'badge-success'
+                    when 'failed'
+                      badge_class = 'badge-danger'
+                    else
+                      badge_class = 'badge-secondary'
+                    end
+                  %>
+                  <span class="badge <%= badge_class %>">
+                    <%= phone_number.status.humanize %>
+                  </span>
+                </td>
+                <td>
+                  <small class="text-muted">
+                    <%= time_ago_in_words(phone_number.uploaded_at) %> ago
+                  </small>
+                </td>
+                <td>
+                  <% if phone_number.call_logs.any? %>
+                    <% last_call = phone_number.call_logs.order(created_at: :desc).first %>
+                    <div>
+                      <small class="text-muted">
+                        <%= time_ago_in_words(last_call.created_at) %> ago
+                      </small>
+                      <% if last_call.duration && last_call.duration > 0 %>
+                        <br><small class="text-muted">
+                          <%= last_call.duration %>s
+                        </small>
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <small class="text-muted">Never called</small>
+                  <% end %>
+                </td>
+                <td>
+                  <div class="flex gap-2">
+                    <%= form_with url: call_single_phone_numbers_path, method: :post, local: true, class: "d-inline" do |f| %>
+                      <%= f.hidden_field :phone_number_id, value: phone_number.id %>
+                      <%= f.submit "Call", 
+                          class: "btn btn-outline btn-sm", 
+                          confirm: "Make a call to #{phone_number.number}?",
+                          disabled: (phone_number.status == 'called') %>
+                    <% end %>
+                    <%= link_to phone_number_path(phone_number), 
+                        class: "btn btn-secondary btn-sm flex items-center gap-1" do %>
+                      <i class="bi bi-eye"></i>
+                      View
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="text-center py-5">
+        <div class="mb-3">
+          <i class="bi bi-telephone-x text-muted" style="font-size: 4rem; opacity: 0.3;"></i>
+        </div>
+        <h5 class="text-muted mb-3">No phone numbers uploaded yet</h5>
+        <p class="text-muted mb-4">Upload some phone numbers to get started with calling.</p>
+        <%= link_to upload_phone_numbers_path, class: "btn btn-primary d-inline-flex align-items-center" do %>
+          <i class="bi bi-cloud-upload me-2"></i>
+          Upload Phone Numbers
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

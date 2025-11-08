@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1>✍️ Create New Blog Post</h1>
+    
+    <!-- Manual Blog Post Form -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5>Manual Blog Post</h5>
+      </div>
+      <div class="card-body">
+        <%= form_with model: @blog_post, url: blog_posts_path, method: :post, local: true do |f| %>
+          <div class="mb-3">
+            <%= f.label :title, "Title:", class: "form-label" %>
+            <%= f.text_field :title, class: "form-control", placeholder: "Enter blog post title" %>
+          </div>
+          
+          <div class="mb-3">
+            <%= f.label :content, "Content:", class: "form-label" %>
+            <%= f.text_area :content, rows: 15, class: "form-control", 
+                placeholder: "Write your blog post content here..." %>
+          </div>
+          
+          <div class="d-flex justify-content-between">
+            <%= link_to "Cancel", blog_posts_path, class: "btn btn-outline-secondary" %>
+            <%= f.submit "Publish Post", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <!-- AI Blog Generator -->
+    <div class="card">
+      <div class="card-header">
+        <h5>🤖 AI Blog Generator</h5>
+      </div>
+      <div class="card-body">
+        <p class="small">Generate multiple programming blog posts using AI. Perfect for quickly creating content.</p>
+        
+        <%= form_with url: generate_ai_posts_blog_posts_path, method: :post, local: true do |f| %>
+          <%= f.label :titles_list, "Blog Post Titles (one per line):", class: "form-label" %>
+          <%= f.text_area :titles_list, 
+              rows: 8,
+              placeholder: "Ruby on Rails Best Practices\nJavaScript ES6 Features - Modern syntax\nPython for Beginners\nDocker Fundamentals\nReact State Management\nNode.js Performance Tips\nSQL Query Optimization\nGit Workflow Strategies\nAPI Design Patterns\nTesting in JavaScript", 
+              class: "form-control mb-3" %>
+          
+          <div class="form-text mb-3">
+            <strong>Format:</strong> "Title" or "Title - Description"<br>
+            The AI will generate full articles for each title.
+          </div>
+          
+          <%= f.submit "🚀 Generate AI Posts", class: "btn btn-success w-100", 
+              confirm: "This will generate AI blog posts. Continue?" %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Writing Tips -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <h5>📝 Writing Tips</h5>
+      </div>
+      <div class="card-body">
+        <h6 class="small">Good Blog Topics:</h6>
+        <ul class="small">
+          <li>Step-by-step tutorials</li>
+          <li>Best practices & patterns</li>
+          <li>Technology comparisons</li>
+          <li>Problem-solving guides</li>
+          <li>Tool recommendations</li>
+        </ul>
+        
+        <h6 class="small mt-3">Structure Ideas:</h6>
+        <ul class="small">
+          <li>Introduction & problem</li>
+          <li>Main content with examples</li>
+          <li>Code snippets</li>
+          <li>Key takeaways</li>
+          <li>Conclusion & next steps</li>
+        </ul>
+        
+        <div class="alert alert-info small mt-3">
+          <strong>💡 Tip:</strong> AI-generated posts are great for quick content creation, but you can always edit them after generation!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
