@@ -1,0 +1,33 @@
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Streamlit-specific files
+.streamlit/secrets.toml
+.streamlit/config.toml # If you have local configurations you don't want to commit
+
+# Python-specific files
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Data files (if not intended for version control)
+*.csv
+*.xlsx
+*.parquet
+*.pkl
+*.json # If containing sensitive data
+
+# Logs
+*.log
