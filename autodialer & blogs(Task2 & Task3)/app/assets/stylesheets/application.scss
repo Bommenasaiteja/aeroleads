@@ -99,12 +99,12 @@ body {
   background: var(--background);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease;
 }
 
 .card:hover {
-  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.05);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
 }
 
 .card-header {
@@ -226,7 +226,7 @@ body {
 .form-control:focus {
   outline: none;
   border-color: var(--ring);
-  box-shadow: 0 0 0 2px rgb(148 163 184 / 0.2);
+  box-shadow: 0 0 0 2px rgba(148, 163, 184, 0.2);
 }
 
 .form-label {

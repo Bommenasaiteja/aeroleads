@@ -30,6 +30,8 @@ services:
     environment:
       - RAILS_ENV=production
       - SECRET_KEY_BASE=${SECRET_KEY_BASE:-dummy_secret_for_dev_minimum_30_chars_required}
+      # Disable SSL forcing for local Docker environment
+      - FORCE_SSL=false
       # PostgreSQL connection string
       - DATABASE_URL=postgresql://postgres:password@db:5432/autodialer_production
       # Twilio credentials
