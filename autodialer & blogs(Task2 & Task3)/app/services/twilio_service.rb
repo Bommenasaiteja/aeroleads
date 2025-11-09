@@ -1,8 +1,8 @@
 class TwilioService
   def initialize
     @client = Twilio::REST::Client.new(
-      Rails.application.credentials.twilio[:account_sid],
-      Rails.application.credentials.twilio[:auth_token]
+      ENV['TWILIO_ACCOUNT_SID'] || Rails.application.credentials.dig(:twilio, :account_sid),
+      ENV['TWILIO_AUTH_TOKEN'] || Rails.application.credentials.dig(:twilio, :auth_token)
     )
   end
 
@@ -14,7 +14,7 @@ class TwilioService
     
     call_options = {
       to: to_number,
-      from: Rails.application.credentials.twilio[:phone_number],
+      from: ENV['TWILIO_PHONE_NUMBER'] || Rails.application.credentials.dig(:twilio, :phone_number),
       twiml: generate_twiml_for_demo
     }
     
